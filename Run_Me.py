@@ -1,9 +1,24 @@
 import subprocess
+import shutil
 
-# Definir las funciones para mostrar el menú
+# Función para mostrar el menú
 def show_menu():
     while True:
-        print("Menú:")
+        # Leer el arte ASCII desde un archivo .ans llamado "visual"
+        try:
+            with open("visual.ans", "r") as file:
+                ascii_art = file.read()
+        except FileNotFoundError:
+            print("Archivo 'visual.ans' no encontrado.")
+            return
+
+        # Muestra el arte ASCII centrado
+        terminal_width = shutil.get_terminal_size().columns
+        for line in ascii_art.splitlines():
+            print(line.center(terminal_width))
+
+        # Muestra el mensaje sin centrar
+        print("Saturnx-Dev Presenta Script Master V1")
         print("1. Ejecutar 1_Rename_Archives.py")
         print("2. Ejecutar 2_Rename_Folders.py")
         print("3. Ejecutar 3_Move_Archives.py")
