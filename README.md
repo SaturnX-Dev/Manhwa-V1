@@ -1,5 +1,4 @@
-# Script_Master_V1
-
+# Manhwa V1
 Gestor de Archivos y Carpetas
 
 ## Descripción del Proyecto
