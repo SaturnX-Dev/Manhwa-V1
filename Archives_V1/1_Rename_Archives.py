@@ -2,7 +2,7 @@ import os
 import re
 
 # Directorio de origen
-source_directory = r'Y:\Archives'
+source_directory = r'Z:\Library\Raw'
 
 # Caracteres y símbolos a eliminar y reemplazar
 caracteres_a_eliminar = ["𓃠", "[烌]", "烌", "💮", "(", ")", "[", "]", "烏", "龙"]

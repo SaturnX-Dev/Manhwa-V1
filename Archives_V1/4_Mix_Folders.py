@@ -3,9 +3,9 @@ import re
 import shutil
 
 # Directorio de carpetas
-source_directory_folders = r'Y:\Folders'
+source_directory_folders = r'Z:\Library\Reader'
 
-# Función para listar carpetas en 'Y:\Folders'
+# Función para listar carpetas en 'Z:\Library\Reader'
 def listar_carpetas_en_folders():
     carpetas_en_folders = [foldername for foldername in os.listdir(source_directory_folders) if os.path.isdir(os.path.join(source_directory_folders, foldername))]
     return carpetas_en_folders
@@ -47,14 +47,14 @@ def combinar_carpetas_con_nombres_comunes():
 # Menú
 while True:
     print("Menú:")
-    print("1. Listar carpetas en 'Y:\\Folders'")
+    print("1. Listar carpetas en 'Z:\Library\Reader'")
     print("2. Combinar carpetas con nombres comunes")
     print("3. Salir")
 
     opcion = input("Selecciona una opción (1/2/3): ")
 
     if opcion == '1':
-        print("Carpetas en 'Y:\\Folders':")
+        print("Carpetas en 'Z:\Library\Reader':")
         carpetas_en_folders = listar_carpetas_en_folders()
         for carpeta in carpetas_en_folders:
             print(carpeta)

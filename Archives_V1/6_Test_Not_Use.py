@@ -3,15 +3,15 @@ import re
 import shutil
 
 # Directorios de origen y destino
-source_directory_archives = r'Y:\Archives'
-source_directory_folders = r'Y:\Folders'
+source_directory_archives = r'Z:\Library\Raw'
+source_directory_folders = r'Z:\Library\Reader'
 
-# Función para listar archivos en 'Y:\Archives'
+# Función para listar archivos en 'Z:\Library\Raw'
 def listar_archivos_en_archives():
     archivos_en_archives = [filename for filename in os.listdir(source_directory_archives) if os.path.isfile(os.path.join(source_directory_archives, filename))]
     return archivos_en_archives
 
-# Función para listar carpetas en 'Y:\Folders'
+# Función para listar carpetas en 'Z:\Library\Reader'
 def listar_carpetas_en_folders():
     carpetas_en_folders = [foldername for foldername in os.listdir(source_directory_folders) if os.path.isdir(os.path.join(source_directory_folders, foldername))]
     return carpetas_en_folders
@@ -44,8 +44,8 @@ def mover_archivos_a_carpetas():
 # Menú
 while True:
     print("Menú:")
-    print("1. Listar archivos en 'Y:\\Archives'")
-    print("2. Listar carpetas en 'Y:\\Folders'")
+    print("1. Listar archivos en 'Z:\Library\Raw'")
+    print("2. Listar carpetas en 'Z:\Library\Reader'")
     print("3. Mover archivos a carpetas")
     print("4. Verificar archivos en carpetas y mover si es necesario")
     print("5. Salir")
@@ -53,12 +53,12 @@ while True:
     opcion = input("Selecciona una opción (1/2/3/4/5): ")
 
     if opcion == '1':
-        print("Archivos en 'Y:\\Archives':")
+        print("Archivos en 'Z:\Library\Raw':")
         archivos_en_archives = listar_archivos_en_archives()
         for archivo in archivos_en_archives:
             print(archivo)
     elif opcion == '2':
-        print("Carpetas en 'Y:\\Folders':")
+        print("Carpetas en 'Z:\Library\Raw':")
         carpetas_en_folders = listar_carpetas_en_folders()
         for carpeta in carpetas_en_folders:
             print(carpeta)

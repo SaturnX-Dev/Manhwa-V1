@@ -1,7 +1,7 @@
 import os
 
 # Directorio de origen
-source_directory = r'Y:\Folders'
+source_directory = r'Z:\Library\Reader'
 
 # Caracteres y símbolos a eliminar y reemplazar
 caracteres_a_eliminar = ["𓃠", "cbz", "cbr", "pdf", "[烌]", "烌", "💮", "(", ")", "[", "]", "烌", "龙"]

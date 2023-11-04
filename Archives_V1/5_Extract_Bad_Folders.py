@@ -2,14 +2,14 @@ import os
 import shutil
 
 # Directorio de archivos
-source_directory_archives = r'Y:\Archives'
+source_directory_archives = r'Z:\Library\Raw'
 
 # Función para listar y extraer archivos de carpetas
 def extraer_archivos_de_carpetas():
     carpetas_en_archives = [foldername for foldername in os.listdir(source_directory_archives) if os.path.isdir(os.path.join(source_directory_archives, foldername))]
 
     if not carpetas_en_archives:
-        print("No se encontraron carpetas en 'Y:\\Archives'.")
+        print("No se encontraron carpetas en 'Z:\Library\Raw'.")
         return
 
     for carpeta in carpetas_en_archives:
@@ -32,7 +32,7 @@ def extraer_archivos_de_carpetas():
             # os.rmdir(carpeta_completa)
             # print(f"La carpeta '{carpeta}' ha sido eliminada.")
 
-# Función para eliminar carpetas vacías en 'Y:\Archives'
+# Función para eliminar carpetas vacías en 'Z:\Library\Raw'
 def eliminar_carpetas_vacias():
     carpetas_en_archives = [foldername for foldername in os.listdir(source_directory_archives) if os.path.isdir(os.path.join(source_directory_archives, foldername))]
 
@@ -51,8 +51,8 @@ def eliminar_carpetas_vacias():
 # Menú
 while True:
     print("Menú:")
-    print("1. Extraer archivos de carpetas en 'Y:\\Archives'")
-    print("2. Eliminar carpetas vacías en 'Y:\\Archives'")
+    print("1. Extraer archivos de carpetas en 'Z:\Library\Raw'")
+    print("2. Eliminar carpetas vacías en 'Z:\Library\Raw'")
     print("3. Salir")
 
     opcion = input("Selecciona una opción (1/2/3): ")

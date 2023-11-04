@@ -1,0 +1,29 @@
+            _______________________________________________________________________________
+           |                                                                               |
+           |                                                                               |
+           |                                   Manhwa V1                                   |
+           |                             Made by Saturnx-Dev                               |
+           |           _________________________________________________________           |
+           |                                                                               | 
+           |                                 |  MAIN MENU |                                |
+           |           _________________________________________________________           |
+           |                                                                               |
+           |        _______________________________________________________________        |
+           |                                                                               |
+           |        organizar tu libreria de manhwas. version 1 check github repo.         |
+           |        _______________________________________________________________        |
+           |                                                                               |
+           |      [1] Ejecutar 1_Rename_Archives.py        | Renombrar archivos            |
+           |      [2] Ejecutar 2_Rename_Folders.py         | Renombrar carpetas            |
+           |      [3] Ejecutar 3_Move_Archives.py          | Mover archivos                |
+           |      [4] Ejecutar 4_Mix_Folders.py            | Mezclar carpetas              |
+           |      [5] Ejecutar 5_Extract_Bad_Folders.py    | Extraer carpetas defectuosas  |
+           |      [6] Ejecutar 6_Test_Not_Use.py           | Prueba de funciones no usadas |
+           |      ___________________________________________________________________      |
+           |                                                                               |
+           |      [Q] Exit                                                                 |
+           |                                                                               |
+           |_______________________________________________________________________________|
+
+
+                                        Select [1,2,3,4,5,6,Q]:
