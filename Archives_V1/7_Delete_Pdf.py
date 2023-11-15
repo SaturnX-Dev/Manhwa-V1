@@ -15,6 +15,19 @@ def buscar_pdf_con_versiones_cbr_cbz(directorio):
 
     carpetas_en_directorio = listar_carpetas_en_directorio(directorio)
 
+    # Buscar archivos en la carpeta principal del directorio
+    for file in os.listdir(directorio):
+        file_path = os.path.join(directorio, file)
+        if os.path.isfile(file_path) and file.lower().endswith(".pdf"):
+            base_name = os.path.splitext(file)[0]
+            cbr_path = os.path.join(directorio, base_name + ".cbr")
+            cbz_path = os.path.join(directorio, base_name + ".cbz")
+
+            # Verificar si existen las versiones CBR o CBZ
+            if os.path.exists(cbr_path) or os.path.exists(cbz_path):
+                archivos_a_eliminar.append(file_path)
+
+    # Buscar archivos en carpetas y subcarpetas
     for folder in carpetas_en_directorio:
         folder_path = os.path.join(directorio, folder)
 

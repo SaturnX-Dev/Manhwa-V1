@@ -30,64 +30,64 @@ def crear_carpeta(nombre_comun, intento=1):
     except FileExistsError:
         return crear_carpeta(nombre_comun, intento + 1)
 
-# Función para mover archivos a las carpetas correspondientes
-def mover_archivos_a_carpetas():
+# Nueva función para mover archivos de un tipo específico a carpetas
+def mover_archivos_por_tipo(tipo_archivo):
     archivos_en_archives = listar_archivos_en_archives()
     carpetas_en_folders = listar_carpetas_en_folders()
 
     for archivo in archivos_en_archives:
-        nombre_comun = None
+        if archivo.lower().endswith(tipo_archivo):
+            nombre_comun = None
 
-        # Encontrar un nombre común en las carpetas
-        for carpeta in carpetas_en_folders:
-            if carpeta in archivo:
-                nombre_comun = carpeta
-                break
+            # Encontrar un nombre común en las carpetas
+            for carpeta in carpetas_en_folders:
+                if carpeta in archivo:
+                    nombre_comun = carpeta
+                    break
 
-        if nombre_comun:
-            # Ruta completa del archivo y carpeta
-            ruta_archivo = os.path.join(source_directory_archives, archivo)
-            ruta_carpeta = os.path.join(source_directory_folders, nombre_comun)
-
-            # Mover el archivo a la carpeta correspondiente
-            shutil.move(ruta_archivo, ruta_carpeta)
-            print(f"El archivo '{archivo}' ha sido movido a la carpeta '{nombre_comun}'.")
-        else:
-            # Extraer palabras del nombre del archivo
-            palabras = re.findall(r'\b\w+\b', archivo)
-
-            # Filtrar palabras que no son números
-            palabras = [palabra for palabra in palabras if not palabra.isnumeric()]
-
-            # Unir las palabras para crear el nombre común
-            nombre_comun = ' '.join(palabras)
-
-            # Verificar si existe una carpeta con un nombre similar
-            carpeta_existente = next((carpeta for carpeta in carpetas_en_folders if nombre_comun in carpeta), None)
-
-            if carpeta_existente:
+            if nombre_comun:
                 # Ruta completa del archivo y carpeta
                 ruta_archivo = os.path.join(source_directory_archives, archivo)
-                ruta_carpeta = os.path.join(source_directory_folders, carpeta_existente)
+                ruta_carpeta = os.path.join(source_directory_folders, nombre_comun)
 
                 # Mover el archivo a la carpeta correspondiente
                 shutil.move(ruta_archivo, ruta_carpeta)
-                print(f"El archivo '{archivo}' ha sido movido a la carpeta '{carpeta_existente}'.")
+                print(f"El archivo '{archivo}' ha sido movido a la carpeta '{nombre_comun}'.")
             else:
-                # Crear una nueva carpeta con el nombre común
-                nueva_ruta_carpeta = crear_carpeta(nombre_comun)
+                # Extraer palabras del nombre del archivo
+                palabras = re.findall(r'\b\w+\b', archivo)
 
-                # Mover el archivo a la carpeta nueva
-                ruta_archivo = os.path.join(source_directory_archives, archivo)
-                shutil.move(ruta_archivo, nueva_ruta_carpeta)
-                print(f"El archivo '{archivo}' ha sido movido a la nueva carpeta '{nombre_comun}'.")
+                # Filtrar palabras que no son números
+                palabras = [palabra for palabra in palabras if not palabra.isnumeric()]
 
-# Menú
+                # Unir las palabras para crear el nombre común
+                nombre_comun = ' '.join(palabras)
+
+                # Verificar si existe una carpeta con un nombre similar
+                carpeta_existente = next((carpeta for carpeta in carpetas_en_folders if nombre_comun.lower() in carpeta.lower()), None)
+
+                if carpeta_existente:
+                    # Ruta completa del archivo y carpeta
+                    ruta_archivo = os.path.join(source_directory_archives, archivo)
+                    ruta_carpeta = os.path.join(source_directory_folders, carpeta_existente)
+
+                    # Mover el archivo a la carpeta correspondiente
+                    shutil.move(ruta_archivo, ruta_carpeta)
+                    print(f"El archivo '{archivo}' ha sido movido a la carpeta '{carpeta_existente}'.")
+                else:
+                    # Crear una nueva carpeta con el nombre común
+                    nueva_ruta_carpeta = crear_carpeta(nombre_comun)
+
+                    # Mover el archivo a la carpeta nueva
+                    ruta_archivo = os.path.join(source_directory_archives, archivo)
+                    shutil.move(ruta_archivo, nueva_ruta_carpeta)
+                    print(f"El archivo '{archivo}' ha sido movido a la nueva carpeta '{nombre_comun}'.")
+# Menú principal
 while True:
     print("Menú:")
     print("1. Listar archivos en Raw")
     print("2. Listar carpetas en Reader")
-    print("3. Mover archivos a carpetas")
+    print("3. Mover archivos a carpetas por tipo")
     print("4. Salir")
 
     opcion = input("Selecciona una opción (1/2/3/4): ")
@@ -103,9 +103,32 @@ while True:
         for carpeta in carpetas_en_folders:
             print(carpeta)
     elif opcion == '3':
-        print("Moviendo archivos a carpetas...")
-        mover_archivos_a_carpetas()
-        print("Archivos movidos.")
+        # Submenú para seleccionar el tipo de archivo
+        while True:
+            print("Submenú - Seleccionar tipo de archivo:")
+            print("1. Archivos CBR")
+            print("2. Archivos CBZ")
+            print("3. Archivos PDF")
+            print("4. Volver al menú principal")
+
+            opcion_tipo_archivo = input("Selecciona un tipo de archivo (1/2/3/4): ")
+
+            if opcion_tipo_archivo == '1':
+                print("Moviendo archivos CBR a carpetas...")
+                mover_archivos_por_tipo('.cbr')
+                print("Archivos CBR movidos.")
+            elif opcion_tipo_archivo == '2':
+                print("Moviendo archivos CBZ a carpetas...")
+                mover_archivos_por_tipo('.cbz')
+                print("Archivos CBZ movidos.")
+            elif opcion_tipo_archivo == '3':
+                print("Moviendo archivos PDF a carpetas...")
+                mover_archivos_por_tipo('.pdf')
+                print("Archivos PDF movidos.")
+            elif opcion_tipo_archivo == '4':
+                break
+            else:
+                print("Opción no válida. Por favor, selecciona una opción válida (1/2/3/4).")
     elif opcion == '4':
         break
     else:
