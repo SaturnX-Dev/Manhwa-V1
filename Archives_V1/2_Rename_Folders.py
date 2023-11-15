@@ -1,4 +1,5 @@
 import os
+import shutil
 
 # Directorio de origen
 source_directory = r'Z:\Library\Reader'
@@ -19,16 +20,14 @@ def listar_carpetas(directorio):
 
 # Función para renombrar carpetas y fusionar carpetas con el mismo nombre
 def renombrar_y_fusionar_carpetas(directorio):
-    carpetas = set()
+    carpetas_procesadas = {}
 
     def procesar_nombre(nombre):
         # Eliminar caracteres y símbolos no deseados
         for caracter in caracteres_a_eliminar:
             nombre = nombre.replace(caracter, '')
-
         for signo in signos_a_eliminar:
             nombre = nombre.replace(signo, '')
-
         for acento, reemplazo in acentos_a_reemplazar.items():
             nombre = nombre.replace(acento, reemplazo)
 
@@ -40,32 +39,30 @@ def renombrar_y_fusionar_carpetas(directorio):
         # Capitalizar palabras
         nombre = ' '.join(word.capitalize() for word in nombre.split())
 
-        return nombre
+        return nombre.strip()
 
     for foldername in os.listdir(directorio):
         if os.path.isdir(os.path.join(directorio, foldername)):
             nuevo_nombre = procesar_nombre(foldername)
 
-            if not nuevo_nombre.startswith(('+', '-')) and nuevo_nombre[:3].isdigit():
-                nuevo_nombre = nuevo_nombre.lstrip('0123456789')
-
-            vieja_ruta = os.path.join(directorio, foldername)
-            nueva_ruta = os.path.join(directorio, nuevo_nombre)
-
-            if nuevo_nombre in carpetas:
-                nueva_ruta_existente = os.path.join(directorio, nuevo_nombre)
-                for root, dirs, files in os.walk(vieja_ruta):
-                    for file in files:
-                        file_path = os.path.join(root, file)
-                        new_file_path = os.path.join(nueva_ruta_existente, os.path.relpath(file_path, vieja_ruta))
-                        os.makedirs(os.path.dirname(new_file_path), exist_ok=True)
-                        os.rename(file_path, new_file_path)
-                os.rmdir(vieja_ruta)
+            if nuevo_nombre in carpetas_procesadas:
+                ruta_existente = carpetas_procesadas[nuevo_nombre]
+                ruta_actual = os.path.join(directorio, foldername)
+                
+                # Mover archivos a la carpeta existente
+                for archivo in os.listdir(ruta_actual):
+                    shutil.move(os.path.join(ruta_actual, archivo), ruta_existente)
+                
+                # Eliminar la carpeta vacía
+                os.rmdir(ruta_actual)
             else:
-                carpetas.add(nuevo_nombre)
-                os.rename(vieja_ruta, nueva_ruta)
+                ruta_nueva = os.path.join(directorio, nuevo_nombre)
+                # Renombrar solo si el nuevo nombre es diferente
+                if ruta_nueva.lower() != os.path.join(directorio, foldername).lower():
+                    os.rename(os.path.join(directorio, foldername), ruta_nueva)
+                carpetas_procesadas[nuevo_nombre] = ruta_nueva
 
-# Menú
+# Menú de usuario
 while True:
     print("Menú:")
     print("1. Listar carpetas en la carpeta")
@@ -82,6 +79,7 @@ while True:
         renombrar_y_fusionar_carpetas(source_directory)
         print("Carpetas renombradas y fusionadas.")
     elif opcion == '3':
+        print("Saliendo...")
         break
     else:
         print("Opción no válida. Por favor, selecciona una opción válida (1/2/3).")

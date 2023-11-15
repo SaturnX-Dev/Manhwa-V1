@@ -46,13 +46,13 @@ def eliminar_carpetas_vacias():
             carpetas_eliminadas += 1
 
     if carpetas_eliminadas == 0:
-        print("No se encontraron carpetas vacías para eliminar en 'Y:\\Archives'.")
+        print("No se encontraron carpetas vacías para eliminar en Raw.")
 
 # Menú
 while True:
     print("Menú:")
-    print("1. Extraer archivos de carpetas en 'Z:\Library\Raw'")
-    print("2. Eliminar carpetas vacías en 'Z:\Library\Raw'")
+    print("1. Extraer archivos de carpetas en Raw")
+    print("2. Eliminar carpetas vacías en Raw")
     print("3. Salir")
 
     opcion = input("Selecciona una opción (1/2/3): ")

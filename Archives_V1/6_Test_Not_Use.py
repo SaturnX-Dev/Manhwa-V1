@@ -44,8 +44,8 @@ def mover_archivos_a_carpetas():
 # Menú
 while True:
     print("Menú:")
-    print("1. Listar archivos en 'Z:\Library\Raw'")
-    print("2. Listar carpetas en 'Z:\Library\Reader'")
+    print("1. Listar archivos en Raw")
+    print("2. Listar carpetas en Reader")
     print("3. Mover archivos a carpetas")
     print("4. Verificar archivos en carpetas y mover si es necesario")
     print("5. Salir")
@@ -53,12 +53,12 @@ while True:
     opcion = input("Selecciona una opción (1/2/3/4/5): ")
 
     if opcion == '1':
-        print("Archivos en 'Z:\Library\Raw':")
+        print("Archivos en Raw:")
         archivos_en_archives = listar_archivos_en_archives()
         for archivo in archivos_en_archives:
             print(archivo)
     elif opcion == '2':
-        print("Carpetas en 'Z:\Library\Raw':")
+        print("Carpetas en Reader:")
         carpetas_en_folders = listar_carpetas_en_folders()
         for carpeta in carpetas_en_folders:
             print(carpeta)

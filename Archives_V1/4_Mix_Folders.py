@@ -47,14 +47,14 @@ def combinar_carpetas_con_nombres_comunes():
 # Menú
 while True:
     print("Menú:")
-    print("1. Listar carpetas en 'Z:\Library\Reader'")
+    print("1. Listar carpetas en Reader")
     print("2. Combinar carpetas con nombres comunes")
     print("3. Salir")
 
     opcion = input("Selecciona una opción (1/2/3): ")
 
     if opcion == '1':
-        print("Carpetas en 'Z:\Library\Reader':")
+        print("Carpetas en eader:")
         carpetas_en_folders = listar_carpetas_en_folders()
         for carpeta in carpetas_en_folders:
             print(carpeta)
