@@ -1,21 +1,22 @@
 import os
 
-# Directorio de carpetas
+# Directorios
 source_directory_folders = r'Z:\Library\Reader'
+source_directory_archives = r'Z:\Library\Raw'
 
-# Función para listar carpetas en 'Z:\Library\Reader'
-def listar_carpetas_en_folders():
-    carpetas_en_folders = [foldername for foldername in os.listdir(source_directory_folders) if os.path.isdir(os.path.join(source_directory_folders, foldername))]
-    return carpetas_en_folders
+# Función para listar carpetas en un directorio
+def listar_carpetas_en_directorio(directorio):
+    carpetas_en_directorio = [foldername for foldername in os.listdir(directorio) if os.path.isdir(os.path.join(directorio, foldername))]
+    return carpetas_en_directorio
 
 # Función para buscar archivos PDF con versiones CBR o CBZ y devolver una lista de ellos
-def buscar_pdf_con_versiones_cbr_cbz():
+def buscar_pdf_con_versiones_cbr_cbz(directorio):
     archivos_a_eliminar = []
 
-    carpetas_en_folders = listar_carpetas_en_folders()
+    carpetas_en_directorio = listar_carpetas_en_directorio(directorio)
 
-    for folder in carpetas_en_folders:
-        folder_path = os.path.join(source_directory_folders, folder)
+    for folder in carpetas_en_directorio:
+        folder_path = os.path.join(directorio, folder)
 
         for root, dirs, files in os.walk(folder_path):
             for file in files:
@@ -41,33 +42,74 @@ def eliminar_archivos(archivos):
         print("Eliminando archivo: {}".format(archivo))
         os.remove(archivo)
 
-# Función para imprimir las carpetas en 'Z:\Library\Reader'
-def imprimir_carpetas_en_folders():
-    carpetas_en_folders = listar_carpetas_en_folders()
-    print("Carpetas en {}: {}".format(source_directory_folders, carpetas_en_folders))
+# Función para imprimir las carpetas en un directorio
+def imprimir_carpetas_en_directorio(directorio):
+    carpetas_en_directorio = listar_carpetas_en_directorio(directorio)
+    print("Carpetas en {}: {}".format(directorio, carpetas_en_directorio))
 
-# Función principal para mostrar el menú
-def mostrar_menu():
+# Función para mostrar el menú de Trabajar en Reader
+def menu_reader():
     while True:
-        print("Menú:")
+        print("Menú Trabajar en Reader:")
         print("1. Listar carpetas en Reader")
-        print("2. Eliminar archivos PDF con versiones CBR o CBZ")
-        print("3. Salir")
+        print("2. Eliminar archivos PDF con versiones CBR o CBZ en Reader")
+        print("3. Volver al menú principal")
 
         opcion = input("Selecciona una opción (1/2/3): ")
 
         if opcion == '1':
-            imprimir_carpetas_en_folders()
+            imprimir_carpetas_en_directorio(source_directory_folders)
         elif opcion == '2':
-            print("Buscando y eliminando archivos PDF con versiones CBR o CBZ...")
-            archivos_a_eliminar = buscar_pdf_con_versiones_cbr_cbz()
+            print("Buscando y eliminando archivos PDF con versiones CBR o CBZ en Reader...")
+            archivos_a_eliminar = buscar_pdf_con_versiones_cbr_cbz(source_directory_folders)
             eliminar_archivos(archivos_a_eliminar)
-            print("Eliminación completada.")
+            print("Eliminación en Reader completada.")
         elif opcion == '3':
             break
         else:
             print("Opción no válida. Por favor, selecciona una opción válida (1/2/3).")
 
-# Ejecutar el menú
+# Función para mostrar el menú de Trabajar en Raw
+def menu_raw():
+    while True:
+        print("Menú Trabajar en Raw:")
+        print("1. Listar carpetas en Raw")
+        print("2. Eliminar archivos PDF con versiones CBR o CBZ en Raw")
+        print("3. Volver al menú principal")
+
+        opcion = input("Selecciona una opción (1/2/3): ")
+
+        if opcion == '1':
+            imprimir_carpetas_en_directorio(source_directory_archives)
+        elif opcion == '2':
+            print("Buscando y eliminando archivos PDF con versiones CBR o CBZ en Raw...")
+            archivos_a_eliminar = buscar_pdf_con_versiones_cbr_cbz(source_directory_archives)
+            eliminar_archivos(archivos_a_eliminar)
+            print("Eliminación en Raw completada.")
+        elif opcion == '3':
+            break
+        else:
+            print("Opción no válida. Por favor, selecciona una opción válida (1/2/3).")
+
+# Función principal para mostrar el menú principal
+def mostrar_menu_principal():
+    while True:
+        print("Menú Principal:")
+        print("1. Trabajar en Reader")
+        print("2. Trabajar en Raw")
+        print("3. Salir")
+
+        opcion = input("Selecciona una opción (1/2/3): ")
+
+        if opcion == '1':
+            menu_reader()
+        elif opcion == '2':
+            menu_raw()
+        elif opcion == '3':
+            break
+        else:
+            print("Opción no válida. Por favor, selecciona una opción válida (1/2/3).")
+
+# Ejecutar el menú principal
 if __name__ == "__main__":
-    mostrar_menu()
+    mostrar_menu_principal()

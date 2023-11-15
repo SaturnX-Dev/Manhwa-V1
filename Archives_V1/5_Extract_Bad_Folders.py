@@ -9,7 +9,7 @@ def extraer_archivos_de_carpetas():
     carpetas_en_archives = [foldername for foldername in os.listdir(source_directory_archives) if os.path.isdir(os.path.join(source_directory_archives, foldername))]
 
     if not carpetas_en_archives:
-        print("No se encontraron carpetas en 'Z:\Library\Raw'.")
+        print(R"No se encontraron carpetas en 'Z:\\Library\Raw'.")
         return
 
     for carpeta in carpetas_en_archives:
