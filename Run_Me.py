@@ -26,7 +26,10 @@ def show_menu():
             subprocess.Popen(["cmd", "/c", "start", "python", "Archives_V1/5_Extract_Bad_Folders.py"], shell=True)
         elif choice == '6':
             subprocess.Popen(["cmd", "/c", "start", "python", "Archives_V1/6_Test_Not_Use.py"], shell=True)
+        elif choice == '7':
+            subprocess.Popen(["cmd", "/c", "start", "python", "7_Delete_Pdf.py"], shell=True)
         else:
             print("\nOpción no válida. Por favor, elige una opción válida.")
+
 if __name__ == "__main__":
     show_menu()

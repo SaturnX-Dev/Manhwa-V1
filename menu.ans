@@ -19,6 +19,7 @@
            |      [4] Ejecutar 4_Mix_Folders.py            | Mezclar carpetas              |
            |      [5] Ejecutar 5_Extract_Bad_Folders.py    | Extraer carpetas defectuosas  |
            |      [6] Ejecutar 6_Test_Not_Use.py           | Prueba de funciones no usadas |
+           |      [7] Ejecutar 7_Delete_Pdf.py             | Elimina PDF sobrante          |
            |      ___________________________________________________________________      |
            |                                                                               |
            |      [Q] Exit                                                                 |
@@ -26,4 +27,4 @@
            |_______________________________________________________________________________|
 
 
-                                        Select [1,2,3,4,5,6,Q]:
+                                      Select [1,2,3,4,5,6,7,Q]:
