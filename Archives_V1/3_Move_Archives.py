@@ -17,18 +17,25 @@ def listar_carpetas_en_folders():
     return carpetas_en_folders
 
 # Función para crear una carpeta con un nombre común
-def crear_carpeta(nombre_comun, intento=1):
-    if intento > 1:
-        nuevo_nombre = f"{nombre_comun} {intento}"
-        nueva_ruta_carpeta = os.path.join(source_directory_folders, nuevo_nombre)
-    else:
-        nueva_ruta_carpeta = os.path.join(source_directory_folders, nombre_comun)
+def crear_carpeta(nombre_comun):
+    # Eliminar caracteres no alfanuméricos ni espacios
+    nombre_comun = re.sub(r'[^\w\s]', '', nombre_comun)
 
-    try:
-        os.makedirs(nueva_ruta_carpeta)
-        return nueva_ruta_carpeta
-    except FileExistsError:
-        return crear_carpeta(nombre_comun, intento + 1)
+    # Excluir nombres específicos como "CBR", "CBZ", "PDF"
+    palabras_excluidas = ["CBR", "CBZ", "PDF"]
+    nombre_comun = ' '.join([palabra for palabra in nombre_comun.split() if palabra.upper() not in palabras_excluidas])
+
+    # Construir la ruta completa de la carpeta
+    ruta_carpeta = os.path.join(source_directory_folders, nombre_comun)
+
+    # Crear la carpeta si no existe
+    if not os.path.exists(ruta_carpeta):
+        try:
+            os.makedirs(ruta_carpeta)
+        except FileExistsError:
+            pass
+
+    return ruta_carpeta
 
 # Nueva función para mover archivos de un tipo específico a carpetas
 def mover_archivos_por_tipo(tipo_archivo):
@@ -75,13 +82,11 @@ def mover_archivos_por_tipo(tipo_archivo):
                     shutil.move(ruta_archivo, ruta_carpeta)
                     print(f"El archivo '{archivo}' ha sido movido a la carpeta '{carpeta_existente}'.")
                 else:
-                    # Crear una nueva carpeta con el nombre común
-                    nueva_ruta_carpeta = crear_carpeta(nombre_comun)
+                    # Mover el archivo a la carpeta nueva o existente con el nombre común
+                    ruta_carpeta = crear_carpeta(nombre_comun)
+                    shutil.move(os.path.join(source_directory_archives, archivo), ruta_carpeta)
+                    print(f"El archivo '{archivo}' ha sido movido a la carpeta '{nombre_comun}'.")
 
-                    # Mover el archivo a la carpeta nueva
-                    ruta_archivo = os.path.join(source_directory_archives, archivo)
-                    shutil.move(ruta_archivo, nueva_ruta_carpeta)
-                    print(f"El archivo '{archivo}' ha sido movido a la nueva carpeta '{nombre_comun}'.")
 # Menú principal
 while True:
     print("Menú:")

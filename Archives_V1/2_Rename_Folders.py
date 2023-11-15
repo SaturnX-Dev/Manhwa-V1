@@ -1,9 +1,9 @@
 import os
 import shutil
+from difflib import SequenceMatcher
 
 # Directorio de origen
 source_directory = r'Z:\Library\Reader'
-
 
 # Caracteres y símbolos a eliminar y reemplazar
 caracteres_a_eliminar = ["𓃠", "[烌]", "烌", "💮", "(", ")", "[", "]", "烏", "龙", "×͜×", "❬", "❭"]
@@ -13,61 +13,64 @@ acentos_a_reemplazar = {
     "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U"
 }
 
+def limpiar_nombre(nombre):
+    # Eliminar caracteres no deseados
+    for caracter in caracteres_a_eliminar:
+        nombre = nombre.replace(caracter, "")
 
-# Función para listar las carpetas
+    # Eliminar signos de puntuación
+    for signo in signos_a_eliminar:
+        nombre = nombre.replace(signo, "")
+
+    # Reemplazar acentos
+    for acento, sin_acento in acentos_a_reemplazar.items():
+        nombre = nombre.replace(acento, sin_acento)
+
+    return nombre
+
+def similaridad_nombres(nombre1, nombre2):
+    return SequenceMatcher(None, nombre1, nombre2).ratio()
+
+def procesar_carpetas(directorio):
+    carpetas = os.listdir(directorio)
+
+    for i, carpeta1 in enumerate(carpetas):
+        # Construir la ruta completa de la carpeta
+        ruta_completa1 = os.path.join(directorio, carpeta1)
+
+        # Verificar si es una carpeta
+        if os.path.isdir(ruta_completa1):
+            # Obtener el nuevo nombre limpio
+            nuevo_nombre = limpiar_nombre(carpeta1)
+
+            # Intentar combinar con carpetas similares
+            for j, carpeta2 in enumerate(carpetas[i+1:]):
+                indice_original = i + 1 + j  # Ajustar el índice según el bucle interno
+                ruta_completa2 = os.path.join(directorio, carpeta2)
+
+                # Verificar si es una carpeta
+                if os.path.isdir(ruta_completa2):
+                    # Obtener el nuevo nombre limpio de la segunda carpeta
+                    nuevo_nombre2 = limpiar_nombre(carpeta2)
+
+                    # Calcular la similitud entre los nombres
+                    similitud = similaridad_nombres(nuevo_nombre, nuevo_nombre2)
+
+                    # Definir un umbral de similitud para combinar
+                    umbral_similitud = 0.8
+
+                    if similitud >= umbral_similitud:
+                        # Fusionar las carpetas
+                        nueva_ruta_completa = os.path.join(directorio, nuevo_nombre)
+                        shutil.move(ruta_completa2, nueva_ruta_completa)
+                        print(f"Fusionado: {carpeta2} con {carpeta1}")
+
 def listar_carpetas(directorio):
-    for foldername in os.listdir(directorio):
-        if os.path.isdir(os.path.join(directorio, foldername)):
-            print(foldername)
+    print("Carpetas en la carpeta:")
+    for carpeta in os.listdir(directorio):
+        if os.path.isdir(os.path.join(directorio, carpeta)):
+            print(carpeta)
 
-# Función para renombrar carpetas y fusionar carpetas con el mismo nombre
-def renombrar_y_fusionar_carpetas(directorio):
-    carpetas_procesadas = {}
-
-    def procesar_nombre(nombre):
-        # Eliminar caracteres y símbolos no deseados
-        for caracter in caracteres_a_eliminar:
-            nombre = nombre.replace(caracter, '')
-        for signo in signos_a_eliminar:
-            nombre = nombre.replace(signo, '')
-        for acento, reemplazo in acentos_a_reemplazar.items():
-            nombre = nombre.replace(acento, reemplazo)
-
-        # Eliminar guiones y números al principio y al final del nombre
-        nombre = nombre.lstrip('_')
-        nombre = nombre.rstrip('_')
-        while nombre and (nombre[0].isdigit() or nombre[-1].isdigit()) and nombre[-2:] != '__':
-            if nombre[0].isdigit():
-                nombre = nombre[1:]
-            elif nombre[-1].isdigit():
-                nombre = nombre[:-1]
-
-        # Capitalizar palabras
-        nombre = ' '.join(word.capitalize() for word in nombre.split())
-
-        return nombre.strip()
-
-    for foldername in os.listdir(directorio):
-        if os.path.isdir(os.path.join(directorio, foldername)):
-            nuevo_nombre = procesar_nombre(foldername)
-
-            if nuevo_nombre in carpetas_procesadas:
-                ruta_existente = carpetas_procesadas[nuevo_nombre]
-                ruta_actual = os.path.join(directorio, foldername)
-                
-                # Mover archivos a la carpeta existente
-                for archivo in os.listdir(ruta_actual):
-                    shutil.move(os.path.join(ruta_actual, archivo), ruta_existente)
-                
-                # Eliminar la carpeta vacía
-                os.rmdir(ruta_actual)
-            else:
-                ruta_nueva = os.path.join(directorio, nuevo_nombre)
-                # Renombrar solo si el nuevo nombre es diferente
-                if ruta_nueva.lower() != os.path.join(directorio, foldername).lower():
-                    os.rename(os.path.join(directorio, foldername), ruta_nueva)
-                carpetas_procesadas[nuevo_nombre] = ruta_nueva
-                
 # Menú de usuario
 while True:
     print("Menú:")
@@ -78,11 +81,10 @@ while True:
     opcion = input("Selecciona una opción (1/2/3): ")
 
     if opcion == '1':
-        print("Carpetas en la carpeta:")
         listar_carpetas(source_directory)
     elif opcion == '2':
         print("Renombrando y fusionando carpetas en la carpeta...")
-        renombrar_y_fusionar_carpetas(source_directory)
+        procesar_carpetas(source_directory)
         print("Carpetas renombradas y fusionadas.")
     elif opcion == '3':
         print("Saliendo...")
