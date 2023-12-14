@@ -1,6 +1,10 @@
 # Manhwa V1
 Gestor de Archivos y Carpetas
 
+[![Version](https://img.shields.io/badge/Versi
+![Version](https://img.shields.io/badge/Version-1.0-brightgreen)](https://github.com/SaturnX-Dev/Manhwa-V1/releases/tag/V1)
+[![License](https://img.shields.io/badge/License-GPLv3-blue)](https://github.com/SaturnX-Dev/Manhwa-V1/blob/main/LICENSE.txt)
+
 ## Descripción del Proyecto
 
 Este proyecto es un script de gestión de archivos y carpetas que automatiza tareas comunes, como la limpieza de nombres, el renombrado y la organización de archivos y carpetas en un directorio específico. El objetivo principal es mantener la estructura de archivos ordenada y asegurarse de que los nombres de carpetas y archivos sean coherentes.
@@ -54,22 +58,17 @@ Este proyecto es un script de gestión de archivos y carpetas que automatiza tar
 
 3. Instala los módulos de Python requeridos. Puedes hacerlo utilizando el siguiente comando:
 
-4. Ejecuta el script `gestor_de_archivos.py`. Puedes hacerlo desde la línea de comandos con el siguiente comando: `python gestor_de_archivos.py`
+   ```bash
+   pip install -r requirements.txt
+Ejecuta el script gestor_de_archivos.py. Puedes hacerlo desde la línea de comandos con el siguiente comando: python gestor_de_archivos.py
 
-5. El script realizará automáticamente las tareas de limpieza, renombrado, organización y combinación de carpetas y archivos en el directorio especificado.
+El script realizará median un menu interactivo las tareas de limpieza, renombrado, organización y combinación de carpetas y archivos en el directorio especificado.
 
-## Personalización
-
-Puedes personalizar el comportamiento del script modificando las funciones dentro del archivo `gestor_de_archivos.py`. Asegúrate de revisar el código y las funciones antes de realizar cambios significativos.
-
-## Contribuciones
-
+Contribuciones
 Si deseas contribuir a este proyecto, siéntete libre de abrir un problema o enviar una solicitud de extracción. Estamos abiertos a mejoras y correcciones de errores.
 
-## Autor
-
+Autor
 SaturnX-Dev
 
-## Licencia
-
-Este proyecto está bajo la Licencia [Licencia Pública General Simplificada (GPLS)]. Puedes consultar el archivo LICENSE para obtener más detalles.
+Licencia
+Este proyecto está bajo la Licencia [GPLv3]. Puedes consultar el archivo LICENSE para obtener más detalles.

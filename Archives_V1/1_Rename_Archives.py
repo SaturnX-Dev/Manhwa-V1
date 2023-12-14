@@ -1,7 +1,12 @@
 import os
 
-# Directorio de origen
-source_directory = r'Z:\Library\Raw'
+# Solicitar al usuario que ingrese el directorio de trabajo
+source_directory = input("Ingresa Directorio De Trabajo: ")
+
+# Verificar si el directorio existe
+if not os.path.exists(source_directory):
+    print("El directorio ingresado no existe. Por favor, verifica la ruta.")
+    exit()
 
 # Caracteres y símbolos a eliminar y reemplazar
 caracteres_a_eliminar = ["𓃠", "[烌]", "烌", "💮", "(", ")", "[", "]", "烏", "龙", "×͜×", "❬", "❭"]

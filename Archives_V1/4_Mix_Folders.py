@@ -2,8 +2,13 @@ import os
 import re
 import shutil
 
-# Directorio de carpetas
-source_directory_folders = r'Z:\Library\Reader'
+# Solicitar al usuario que ingrese el directorio de trabajo
+source_directory = input("Ingresa Directorio De Trabajo: ")
+
+# Verificar si el directorio existe
+if not os.path.exists(source_directory):
+    print("El directorio ingresado no existe. Por favor, verifica la ruta.")
+    exit()
 
 # Función para listar carpetas en 'Z:\Library\Reader'
 def listar_carpetas_en_folders():

@@ -1,8 +1,13 @@
 import os
 import shutil
 
-# Directorio de archivos
-source_directory_archives = r'Z:\Library\Raw'
+# Solicitar al usuario que ingrese el directorio de trabajo
+source_directory = input("Ingresa Directorio De Trabajo: ")
+
+# Verificar si el directorio existe
+if not os.path.exists(source_directory):
+    print("El directorio ingresado no existe. Por favor, verifica la ruta.")
+    exit()
 
 # Función para listar y extraer archivos de carpetas
 def extraer_archivos_de_carpetas():

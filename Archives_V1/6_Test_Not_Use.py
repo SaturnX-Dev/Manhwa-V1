@@ -2,9 +2,21 @@ import os
 import re
 import shutil
 
-# Directorios de origen y destino
-source_directory_archives = r'Z:\Library\Raw'
-source_directory_folders = r'Z:\Library\Reader'
+# Solicitar al usuario que ingrese el directorio de origen
+source_directory = input("Ingresa Directorio de Origen: ")
+
+# Verificar si el directorio de origen existe
+if not os.path.exists(source_directory):
+    print("El directorio de origen ingresado no existe. Por favor, verifica la ruta.")
+    exit()
+
+# Solicitar al usuario que ingrese el directorio de destino
+destination_directory = input("Ingresa Directorio de Destino: ")
+
+# Verificar si el directorio de destino existe
+if not os.path.exists(destination_directory):
+    print("El directorio de destino ingresado no existe. Por favor, verifica la ruta.")
+    exit()
 
 # Función para listar archivos en 'Z:\Library\Raw'
 def listar_archivos_en_archives():
