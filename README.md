@@ -1,8 +1,8 @@
 # Manhwa V1
 Gestor de Archivos y Carpetas
 
-[![Version](https://img.shields.io/badge/Versi
-![Version](https://img.shields.io/badge/Version-1.0-brightgreen)](https://github.com/SaturnX-Dev/Manhwa-V1/releases/tag/V1)
+
+[![Version](https://img.shields.io/badge/Version-1.0-brightgreen)](https://github.com/SaturnX-Dev/Manhwa-V1/releases/tag/V1)
 [![License](https://img.shields.io/badge/License-GPLv3-blue)](https://github.com/SaturnX-Dev/Manhwa-V1/blob/main/LICENSE.txt)
 
 ## Descripción del Proyecto
