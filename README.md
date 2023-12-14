@@ -56,11 +56,6 @@ Este proyecto es un script de gestión de archivos y carpetas que automatiza tar
 
 2. Asegúrate de tener Python 3.x instalado en tu sistema.
 
-3. Instala los módulos de Python requeridos. Puedes hacerlo utilizando el siguiente comando:
-
-   ```bash
-   pip install -r requirements.txt
-Ejecuta el script gestor_de_archivos.py. Puedes hacerlo desde la línea de comandos con el siguiente comando: python gestor_de_archivos.py
 
 El script realizará median un menu interactivo las tareas de limpieza, renombrado, organización y combinación de carpetas y archivos en el directorio especificado.
 
